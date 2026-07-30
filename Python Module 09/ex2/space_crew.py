@@ -6,7 +6,8 @@ try:
     from pydantic import BaseModel, Field, model_validator, ValidationError
 except Exception:
     BaseModel = object
-    Field = lambda *a, **k: None
+    def Field(*a, **k):
+        return None
     def model_validator(*a, **k):
         def _wrap(f):
             return f

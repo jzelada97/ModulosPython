@@ -6,7 +6,8 @@ try:
 except Exception:
     # Provide helpful fallback if pydantic is not installed
     BaseModel = object
-    Field = lambda *a, **k: None
+    def Field(*a, **k):
+        return None
     ValidationError = Exception
 
 
