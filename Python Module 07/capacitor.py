@@ -1,0 +1,33 @@
+print('Testing Creature with healing capability')
+from ex1 import HealingCreatureFactory, TransformCreatureFactory
+
+# Healing test
+hf = HealingCreatureFactory()
+base = hf.create_base()
+evolved = hf.create_evolved()
+print('base:')
+print(base.describe())
+print(base.attack())
+print(base.heal())
+print('evolved:')
+print(evolved.describe())
+print(evolved.attack())
+print(evolved.heal())
+
+# Transform test
+print('Testing Creature with transform capability')
+tf = TransformCreatureFactory()
+base2 = tf.create_base()
+evolved2 = tf.create_evolved()
+print('base:')
+print(base2.describe())
+print(base2.attack())
+print(base2.transform())
+print(base2.attack())
+print(base2.revert())
+print('evolved:')
+print(evolved2.describe())
+print(evolved2.attack())
+print(evolved2.transform())
+print(evolved2.attack())
+print(evolved2.revert())

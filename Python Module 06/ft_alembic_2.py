@@ -1,0 +1,5 @@
+print('=== Alembic 2 ===')
+print("Accessing alchemy/elements.py using 'import ...' structure")
+import alchemy.elements
+
+print(f"Testing create_earth: {alchemy.elements.create_earth()}")
