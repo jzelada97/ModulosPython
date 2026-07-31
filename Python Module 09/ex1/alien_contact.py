@@ -2,17 +2,7 @@ from enum import Enum
 from datetime import datetime
 from typing import Optional
 
-try:
-    from pydantic import BaseModel, Field, model_validator, ValidationError
-except Exception:
-    BaseModel = object
-    def Field(*a, **k):
-        return None
-    def model_validator(*a, **k):
-        def _wrap(f):
-            return f
-        return _wrap
-    ValidationError = Exception
+from pydantic import BaseModel, Field, model_validator, ValidationError
 
 
 class ContactType(str, Enum):
@@ -34,8 +24,7 @@ class AlienContact(BaseModel):
     is_verified: bool = False
 
     @model_validator(mode='after')
-    def check_business_rules(self):
-        errors = []
+    def check_business_rules(self) -> 'AlienContact':
         if not self.contact_id.startswith('AC'):
             raise ValueError('Contact ID must start with "AC"')
         if self.contact_type == ContactType.physical and not self.is_verified:
@@ -53,9 +42,9 @@ def main() -> None:
     try:
         valid = AlienContact(
             contact_id='AC_2024_001',
-            timestamp='2024-07-01T12:00:00',
+            timestamp='2024-07-01T12:00:00',  # type: ignore[arg-type]
             location='Area 51, Nevada',
-            contact_type='radio',
+            contact_type='radio',  # type: ignore[arg-type]
             signal_strength=8.5,
             duration_minutes=45,
             witness_count=5,
@@ -77,14 +66,15 @@ def main() -> None:
     print('======================================')
     print('Expected validation error:')
     try:
-        invalid = AlienContact(
+        AlienContact(
             contact_id='XX2024',
-            timestamp='2024-07-01T12:00:00',
+            timestamp='2024-07-01T12:00:00',  # type: ignore[arg-type]
             location='Unknown Sector',
-            contact_type='telepathic',
+            contact_type='telepathic',  # type: ignore[arg-type]
             signal_strength=4.0,
             duration_minutes=10,
-            witness_count=1
+            witness_count=1,
+            message_received=None
         )
     except ValidationError as e:
         print(e)

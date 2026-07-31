@@ -1,6 +1,3 @@
-from typing import Any
-
-
 def create_fire() -> str:
     return "Fire element created"
 

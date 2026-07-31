@@ -1,14 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-try:
-    from pydantic import BaseModel, Field, ValidationError
-except Exception:
-    # Provide helpful fallback if pydantic is not installed
-    BaseModel = object
-    def Field(*a, **k):
-        return None
-    ValidationError = Exception
+from pydantic import BaseModel, Field, ValidationError
 
 
 class SpaceStation(BaseModel):
@@ -32,7 +25,7 @@ def main() -> None:
             crew_size=6,
             power_level=85.5,
             oxygen_level=92.3,
-            last_maintenance='2024-01-01T12:00:00',
+            last_maintenance='2024-01-01T12:00:00',  # type: ignore[arg-type]
             is_operational=True,
             notes='All systems nominal.'
         )
@@ -42,7 +35,7 @@ def main() -> None:
         print(f'Crew: {valid.crew_size} people')
         print(f'Power: {valid.power_level}%')
         print(f'Oxygen: {valid.oxygen_level}%')
-        print(f'Status: {'Operational' if valid.is_operational else 'Non-operational'}')
+        print(f"Status: {'Operational' if valid.is_operational else 'Non-operational'}")
     except ValidationError as e:
         print('Unexpected validation error creating valid instance:')
         print(e)
@@ -50,13 +43,14 @@ def main() -> None:
     print('========================================')
     print('Expected validation error:')
     try:
-        invalid = SpaceStation(
+        SpaceStation(
             station_id='ST',  # too short
             name='Tiny Station',
             crew_size=25,  # too many
             power_level=120.0,  # out of range
             oxygen_level=-5.0,
-            last_maintenance='not a datetime'
+            last_maintenance='not a datetime',  # type: ignore[arg-type]
+            notes=None
         )
     except ValidationError as e:
         print(e)

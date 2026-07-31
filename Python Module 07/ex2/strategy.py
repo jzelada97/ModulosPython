@@ -1,5 +1,4 @@
 from __future__ import annotations
-import abc
 from abc import ABC, abstractmethod
 from typing import Any
 

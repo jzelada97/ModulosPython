@@ -3,14 +3,14 @@ import sys
 
 def parse_param(p: str):
     if ':' not in p:
-        raise ValueError(f"Error - invalid parameter'{p}'")
+        raise ValueError(f"Error - invalid parameter '{p}'")
     name, qty = p.split(':', 1)
     if not name:
-        raise ValueError(f"Error - invalid parameter'{p}'")
+        raise ValueError(f"Error - invalid parameter '{p}'")
     try:
         q = int(qty)
     except ValueError as e:
-        raise ValueError(f"Quantity error for'{name}': {e}")
+        raise ValueError(f"Quantity error for '{name}': {e}")
     return name, q
 
 
@@ -22,7 +22,7 @@ def main() -> None:
         try:
             name, q = parse_param(p)
             if name in inv:
-                print(f"Redundant item's'{name}'- discarding")
+                print(f"Redundant item '{name}' - discarding")
                 continue
             inv[name] = q
         except ValueError as e:
@@ -36,8 +36,8 @@ def main() -> None:
     total = sum(inv.values())
     print(f"Total quantity of the {len(items)} items: {total}")
     for name, q in inv.items():
-        pct = (q/total)*100
-        print(f"Item {name} represents {round(pct,1)}%")
+        pct = (q / total) * 100
+        print(f"Item {name} represents {round(pct, 1)}%")
     most = max(inv.items(), key=lambda kv: kv[1])
     least = min(inv.items(), key=lambda kv: kv[1])
     print(f"Item most abundant: {most[0]} with quantity {most[1]}")

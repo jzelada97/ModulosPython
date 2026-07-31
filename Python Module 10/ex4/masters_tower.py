@@ -1,6 +1,6 @@
 from functools import wraps
 from time import perf_counter
-from typing import Callable, Any
+from typing import Callable
 
 
 def timing_decorator(func: Callable) -> Callable:
@@ -9,7 +9,7 @@ def timing_decorator(func: Callable) -> Callable:
         start = perf_counter()
         result = func(*args, **kwargs)
         end = perf_counter()
-        print(f"{func.__name__} took {(end-start):.6f}s")
+        print(f"{func.__name__} took {(end - start):.6f}s")
         return result
     return wrapper
 
@@ -38,7 +38,7 @@ def authenticated(required_role: str):
 
 
 class SpellBook:
-    spells = []
+    spells: list[str] = []
 
     @classmethod
     def add_spell(cls, name: str) -> None:
@@ -53,9 +53,11 @@ class SpellBook:
 def cast_spell(name: str) -> str:
     return f"Casting {name}"
 
+
 @repeat(3)
 def echo_spell(name: str) -> str:
     return f"Echo {name}"
+
 
 @authenticated('archmage')
 def secret_spell(role: str, name: str) -> str:

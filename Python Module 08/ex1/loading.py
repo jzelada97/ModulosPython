@@ -52,7 +52,7 @@ def run_analysis() -> None:
     df = pd.DataFrame({'value': data})
     df['cumsum'] = df['value'].cumsum()
     print('Generating visualization...')
-    plt.figure(figsize=(6,4))
+    plt.figure(figsize=(6, 4))
     plt.plot(df['cumsum'])
     plt.title('Matrix Signal Cumulative')
     plt.xlabel('Index')
@@ -69,7 +69,7 @@ def show_versions() -> None:
         import pkg_resources
         dists = {d.project_name: d.version for d in pkg_resources.working_set}
         print('\nInstalled packages (sample):')
-        for name in ['numpy','pandas','matplotlib','requests']:
+        for name in ['numpy', 'pandas', 'matplotlib', 'requests']:
             print(f"- {name}: {dists.get(name, 'not installed')}")
     except Exception:
         pass

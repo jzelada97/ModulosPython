@@ -1,5 +1,4 @@
 import sys
-from typing import Tuple
 
 
 def main() -> None:
@@ -8,7 +7,7 @@ def main() -> None:
         return
     filename = sys.argv[1]
     print("=== Cyber Archives Recovery ===")
-    print(f"Accessing file'{filename}'")
+    print(f"Accessing file '{filename}'")
     try:
         f = open(filename, 'r', encoding='utf-8')
     except Exception as e:
@@ -22,7 +21,7 @@ def main() -> None:
     finally:
         try:
             f.close()
-            print(f"File'{filename}'closed.")
+            print(f"File '{filename}' closed.")
         except Exception:
             pass
 

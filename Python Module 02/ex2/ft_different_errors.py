@@ -10,7 +10,7 @@ def garden_operations(operation_number: int) -> None:
         open('/non/existent/file')
     elif operation_number == 3:
         # TypeError
-        _ = 'a' + 1  # purposeful TypeError
+        _ = 'a' + 1  # type: ignore[operator]  # purposeful TypeError
     else:
         return
 

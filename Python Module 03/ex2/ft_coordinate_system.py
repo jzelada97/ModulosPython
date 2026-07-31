@@ -1,4 +1,5 @@
 import math
+import sys
 
 
 def parse_coords(s: str) -> tuple[float, float, float]:
@@ -10,7 +11,9 @@ def parse_coords(s: str) -> tuple[float, float, float]:
         y = float(parts[1])
         z = float(parts[2])
     except ValueError as e:
-        raise ValueError(f"Error on parameter'{parts[parts.index(next(p for p in parts if not is_float(p)))]}': {e}")
+        bad = next(p for p in parts if not is_float(p))
+        idx = parts.index(bad)
+        raise ValueError(f"Error on parameter '{parts[idx]}': {e}")
     return (x, y, z)
 
 
@@ -24,7 +27,7 @@ def is_float(s: str) -> bool:
 
 def get_player_pos() -> tuple[float, float, float]:
     while True:
-        s = input("Enter new coordinates as floats in format'x,y,z': ")
+        s = input("Enter new coordinates as floats in format 'x,y,z': ")
         try:
             coords = parse_coords(s)
             return coords
@@ -33,10 +36,16 @@ def get_player_pos() -> tuple[float, float, float]:
 
 
 def dist(a: tuple[float, float, float], b: tuple[float, float, float]) -> float:
-    return math.sqrt((b[0]-a[0])**2 + (b[1]-a[1])**2 + (b[2]-a[2])**2)
+    return math.sqrt((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2 + (b[2] - a[2]) ** 2)
 
 
 if __name__ == "__main__":
+    # Skip interactive demo when stdin is not a terminal (e.g. automated runner)
+    if not sys.stdin.isatty():
+        print("=== Game Coordinate System ===")
+        print("(Skipped: requires interactive input)")
+        sys.exit(0)
+
     print("=== Game Coordinate System ===")
     print("Get a first set of coordinates")
     c1 = get_player_pos()

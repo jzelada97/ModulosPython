@@ -30,7 +30,12 @@ def main() -> None:
         {'name': 'Crystal Orb', 'power': 85, 'type': 'orb'},
     ]
     sorted_art = artifact_sorter(artifacts)
-    print(f"{sorted_art[0]['name']} ({sorted_art[0]['power']} power) comes before {sorted_art[1]['name']} ({sorted_art[1]['power']} power)")
+    first = sorted_art[0]
+    second = sorted_art[1]
+    print(
+        f"{first['name']} ({first['power']} power) comes before "
+        f"{second['name']} ({second['power']} power)"
+    )
 
     print('Testing spell transformer...')
     spells = ['fireball', 'heal', 'shield']

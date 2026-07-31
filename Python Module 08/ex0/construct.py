@@ -1,6 +1,5 @@
 import sys
 import os
-import site
 from typing import Optional
 
 

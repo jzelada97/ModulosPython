@@ -1,6 +1,5 @@
-from ..elements import create_fire, create_water
+from elements import create_fire, create_water  # noqa: E402
 from .elements import create_earth, create_air
-from typing import Any
 
 
 def strength_potion() -> str:

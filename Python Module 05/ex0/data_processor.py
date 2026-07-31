@@ -1,5 +1,4 @@
 from __future__ import annotations
-import abc
 from abc import ABC, abstractmethod
 from typing import Any, List, Tuple
 
@@ -105,7 +104,7 @@ if __name__ == "__main__":
     print("Trying to validate input 'Hello':", np.validate('Hello'))
     print("Test invalid ingestion of string 'foo' without prior validation:")
     try:
-        np.ingest('foo')
+        np.ingest('foo')  # type: ignore[arg-type]  # intentional bad type demo
     except Exception as e:
         print('Got exception:', e)
     print('Processing data: [1, 2, 3, 4, 5]')

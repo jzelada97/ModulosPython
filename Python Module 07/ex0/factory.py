@@ -4,7 +4,6 @@ import sys
 # When running this file directly, ensure module root is on sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from abc import ABC, abstractmethod
-from typing import Protocol
 from ex0.creature import Creature, Flameling, Pyrodon, Aquabub, Torragon
 
 

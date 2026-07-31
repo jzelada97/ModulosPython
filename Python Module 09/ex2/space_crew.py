@@ -2,17 +2,7 @@ from enum import Enum
 from datetime import datetime
 from typing import List
 
-try:
-    from pydantic import BaseModel, Field, model_validator, ValidationError
-except Exception:
-    BaseModel = object
-    def Field(*a, **k):
-        return None
-    def model_validator(*a, **k):
-        def _wrap(f):
-            return f
-        return _wrap
-    ValidationError = Exception
+from pydantic import BaseModel, Field, model_validator, ValidationError
 
 
 class Rank(str, Enum):
@@ -44,7 +34,7 @@ class SpaceMission(BaseModel):
     budget_millions: float = Field(..., ge=1.0, le=10000.0)
 
     @model_validator(mode='after')
-    def mission_rules(self):
+    def mission_rules(self) -> 'SpaceMission':
         if not self.mission_id.startswith('M'):
             raise ValueError('Mission ID must start with "M"')
         ranks = [m.rank for m in self.crew]
@@ -53,7 +43,9 @@ class SpaceMission(BaseModel):
         if self.duration_days > 365:
             experienced = sum(1 for m in self.crew if m.years_experience >= 5)
             if experienced < (0.5 * len(self.crew)):
-                raise ValueError('Long missions (>365 days) need 50% experienced crew (5+ years)')
+                raise ValueError(
+                    'Long missions (>365 days) need 50% experienced crew (5+ years)'
+                )
         if any(not m.is_active for m in self.crew):
             raise ValueError('All crew members must be active')
         return self
@@ -64,15 +56,39 @@ def main() -> None:
     print('=========================================')
     try:
         crew = [
-            CrewMember(member_id='C001', name='Sarah Connor', rank='commander', age=40, specialization='Command', years_experience=12, is_active=True),
-            CrewMember(member_id='C002', name='John Smith', rank='lieutenant', age=35, specialization='Navigation', years_experience=6, is_active=True),
-            CrewMember(member_id='C003', name='Alice Johnson', rank='officer', age=30, specialization='Engineering', years_experience=7, is_active=True),
+            CrewMember(
+                member_id='C001',
+                name='Sarah Connor',
+                rank='commander',  # type: ignore[arg-type]
+                age=40,
+                specialization='Command',
+                years_experience=12,
+                is_active=True,
+            ),
+            CrewMember(
+                member_id='C002',
+                name='John Smith',
+                rank='lieutenant',  # type: ignore[arg-type]
+                age=35,
+                specialization='Navigation',
+                years_experience=6,
+                is_active=True,
+            ),
+            CrewMember(
+                member_id='C003',
+                name='Alice Johnson',
+                rank='officer',  # type: ignore[arg-type]
+                age=30,
+                specialization='Engineering',
+                years_experience=7,
+                is_active=True,
+            ),
         ]
         mission = SpaceMission(
             mission_id='M2024_MARS',
             mission_name='Mars Colony Establishment',
             destination='Mars',
-            launch_date='2026-01-01T09:00:00',
+            launch_date='2026-01-01T09:00:00',  # type: ignore[arg-type]
             duration_days=900,
             crew=crew,
             mission_status='planned',
@@ -96,17 +112,25 @@ def main() -> None:
     print('Expected validation error:')
     try:
         bad_crew = [
-            CrewMember(member_id='C010', name='Inactive One', rank='officer', age=29, specialization='Comms', years_experience=2, is_active=False)
+            CrewMember(
+                member_id='C010',
+                name='Inactive One',
+                rank='officer',  # type: ignore[arg-type]
+                age=29,
+                specialization='Comms',
+                years_experience=2,
+                is_active=False,
+            )
         ]
-        bad_mission = SpaceMission(
+        SpaceMission(
             mission_id='X100',
             mission_name='Bad Mission',
             destination='Nowhere',
-            launch_date='2026-01-01T09:00:00',
+            launch_date='2026-01-01T09:00:00',  # type: ignore[arg-type]
             duration_days=10,
             crew=bad_crew,
             mission_status='planned',
-            budget_millions=10.0
+            budget_millions=10.0,
         )
     except ValidationError as e:
         print(e)

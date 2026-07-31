@@ -36,7 +36,10 @@ class DataStream:
             return
         for proc in self._processors:
             name = proc.__class__.__name__
-            print(f"{name}: total {proc.total_processed} items processed, remaining {proc.remaining} on processor")
+            print(
+                f"{name}: total {proc.total_processed} items processed, "
+                f"remaining {proc.remaining} on processor"
+            )
 
 
 if __name__ == "__main__":
@@ -48,9 +51,16 @@ if __name__ == "__main__":
     from ex0.data_processor import NumericProcessor, TextProcessor, LogProcessor
     np = NumericProcessor()
     ds.register_processor(np)
-    batch = ['Hello world', [3.14, -1, 2.71], [{'log_level': 'WARNING', 'log_message': 'Telnet access! Use ssh instead'},
-                                               {'log_level': 'INFO', 'log_message': 'User wil is connected'}],
-             42, ['Hi', 'five']]
+    batch = [
+        'Hello world',
+        [3.14, -1, 2.71],
+        [
+            {'log_level': 'WARNING', 'log_message': 'Telnet access! Use ssh instead'},
+            {'log_level': 'INFO', 'log_message': 'User wil is connected'},
+        ],
+        42,
+        ['Hi', 'five'],
+    ]
     print(f"Send first batch of data on stream: {batch}")
     ds.process_stream(batch)
     ds.print_processors_stats()

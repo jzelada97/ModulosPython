@@ -4,34 +4,43 @@ from typing import Dict
 
 def mage_counter() -> Callable[[], int]:
     count = 0
+
     def counter() -> int:
         nonlocal count
         count += 1
         return count
+
     return counter
 
 
 def spell_accumulator(initial_power: int) -> Callable[[int], int]:
     total = initial_power
+
     def add(amount: int) -> int:
         nonlocal total
         total += amount
         return total
+
     return add
 
 
 def enchantment_factory(enchantment_type: str) -> Callable[[str], str]:
+
     def enchanter(item_name: str) -> str:
         return f"{enchantment_type} {item_name}"
+
     return enchanter
 
 
 def memory_vault() -> Dict[str, Callable]:
     store: Dict[str, object] = {}
+
     def _store(key: str, value: object) -> None:
         store[key] = value
+
     def _recall(key: str) -> object:
         return store.get(key, 'Memory not found')
+
     return {'store': _store, 'recall': _recall}
 
 

@@ -3,7 +3,6 @@ import os
 import sys
 # Ensure module root is on sys.path so sibling package ex0 is importable
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import abc
 from abc import ABC, abstractmethod
 from typing import Any
 from ex0.creature import Creature

@@ -42,6 +42,10 @@ if __name__ == '__main__':
 
     # Multiple tournament
     print('Tournament 2 (multiple)')
-    ops = [(FlameFactory, NormalStrategy), (HealingCreatureFactory, DefensiveStrategy), (TransformCreatureFactory, AggressiveStrategy)]
+    ops = [
+        (FlameFactory, NormalStrategy),
+        (HealingCreatureFactory, DefensiveStrategy),
+        (TransformCreatureFactory, AggressiveStrategy),
+    ]
     print(ops)
     battle(ops)

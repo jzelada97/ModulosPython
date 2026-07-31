@@ -8,11 +8,11 @@ evolved = hf.create_evolved()
 print('base:')
 print(base.describe())
 print(base.attack())
-print(base.heal())
+print(base.heal())  # type: ignore[attr-defined]
 print('evolved:')
 print(evolved.describe())
 print(evolved.attack())
-print(evolved.heal())
+print(evolved.heal())  # type: ignore[attr-defined]
 
 # Transform test
 print('Testing Creature with transform capability')
@@ -22,12 +22,12 @@ evolved2 = tf.create_evolved()
 print('base:')
 print(base2.describe())
 print(base2.attack())
-print(base2.transform())
+print(base2.transform())  # type: ignore[attr-defined]
 print(base2.attack())
-print(base2.revert())
+print(base2.revert())  # type: ignore[attr-defined]
 print('evolved:')
 print(evolved2.describe())
 print(evolved2.attack())
-print(evolved2.transform())
+print(evolved2.transform())  # type: ignore[attr-defined]
 print(evolved2.attack())
-print(evolved2.revert())
+print(evolved2.revert())  # type: ignore[attr-defined]

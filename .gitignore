@@ -1,0 +1,38 @@
+# Virtual environment
+.venv/
+
+# Cache
+__pycache__/
+.mypy_cache/
+*.pyc
+
+# IDE
+.vscode/
+.kiro/
+
+# Metadata / utilities (not part of exercises)
+run_all_mains.py
+REMAINING_STEPS.md
+ROADMAP.md
+preserved_fragment.txt
+scripts/
+
+# READMEs (personal study notes, not required for submission)
+README.md
+**/README.md
+
+# Subject PDFs and text extractions
+en.subject*.pdf
+en.subject*.txt
+
+# Module 08 .env (real secrets)
+.env
+
+# Module 09/10 generated data
+generated_data/
+data_generator.tar
+generator.tar.gz
+
+# OS files
+Thumbs.db
+.DS_Store
