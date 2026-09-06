@@ -12,14 +12,14 @@ __pycache__/
 
 # Metadata / utilities (not part of exercises)
 run_all_mains.py
-ROADMAP.md
-STUDY_GUIDE.md
 preserved_fragment.txt
 scripts/
 
-# Per-module and per-exercise READMEs (personal study notes)
-Python Module */README.md
-Python Module */ex*/README.md
+# Project documentation is versioned
+# ROADMAP.md
+# STUDY_GUIDE.md
+# Python Module */README.md
+# Python Module */ex*/README.md
 
 # Subject PDFs and text extractions
 en.subject*.pdf
