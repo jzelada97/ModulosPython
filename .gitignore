@@ -33,6 +33,9 @@ generated_data/
 data_generator.tar
 generator.tar.gz
 
+# Module 08 ex1 generated output
+matrix_analysis.png
+
 # OS files
 Thumbs.db
 .DS_Store

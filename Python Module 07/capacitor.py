@@ -1,5 +1,6 @@
-print('Testing Creature with healing capability')
 from ex1 import HealingCreatureFactory, TransformCreatureFactory
+
+print('Testing Creature with healing capability')
 
 # Healing test
 hf = HealingCreatureFactory()

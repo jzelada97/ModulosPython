@@ -1,6 +1,5 @@
 import sys
 import os
-from typing import Optional
 
 
 def in_virtualenv() -> bool:
@@ -14,7 +13,7 @@ def in_virtualenv() -> bool:
     return False
 
 
-def find_site_packages() -> Optional[str]:
+def find_site_packages() -> str | None:
     # Try to locate the active site-packages for current interpreter
     for p in sys.path:
         if 'site-packages' in p:
@@ -27,7 +26,12 @@ def main() -> None:
     if in_virtualenv():
         print("You're in the construct")
         print(f"Current Python: {sys.executable}")
-        venv = os.environ.get('VIRTUAL_ENV') or os.path.dirname(sys.executable)
+        # sys.prefix already points at the venv root when a venv is active
+        # (that's what in_virtualenv() just compared against base_prefix);
+        # VIRTUAL_ENV is only set after 'activate' is sourced, and falling
+        # back to dirname(sys.executable) would wrongly report the venv's
+        # bin/ folder (or Scripts/ on Windows) as the environment itself.
+        venv = os.environ.get('VIRTUAL_ENV') or sys.prefix
         print(f"Virtual Environment: {os.path.basename(venv)}")
         print(f"Environment Path: {venv}")
         print('SUCCESS: You\'re in an isolated environment!')

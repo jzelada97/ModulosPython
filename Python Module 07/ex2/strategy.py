@@ -3,6 +3,10 @@ from abc import ABC, abstractmethod
 from typing import Any
 
 
+class InvalidStrategyError(Exception):
+    """Raised when a BattleStrategy is applied to an unsuitable Creature."""
+
+
 class BattleStrategy(ABC):
     @abstractmethod
     def is_valid(self, creature: Any) -> bool:
@@ -27,7 +31,9 @@ class AggressiveStrategy(BattleStrategy):
 
     def act(self, creature: Any) -> None:
         if not self.is_valid(creature):
-            raise TypeError(f"Invalid Creature'{creature.name}'for this aggressive strategy")
+            raise InvalidStrategyError(
+                f"Invalid Creature'{creature.name}'for this aggressive strategy"
+            )
         print(creature.transform())
         print(creature.attack())
         print(creature.revert())
@@ -39,6 +45,8 @@ class DefensiveStrategy(BattleStrategy):
 
     def act(self, creature: Any) -> None:
         if not self.is_valid(creature):
-            raise TypeError(f"Invalid Creature'{creature.name}'for this defensive strategy")
+            raise InvalidStrategyError(
+                f"Invalid Creature'{creature.name}'for this defensive strategy"
+            )
         print(creature.attack())
         print(creature.heal())

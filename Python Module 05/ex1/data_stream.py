@@ -1,10 +1,98 @@
 from __future__ import annotations
-import os
-import sys
-# Ensure module root is on sys.path so sibling packages like ex0 are importable
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from typing import Any, List
-from ex0.data_processor import DataProcessor
+from abc import ABC, abstractmethod
+from typing import Any, List, Tuple
+
+
+class DataProcessor(ABC):
+    def __init__(self) -> None:
+        self._storage: List[Tuple[int, str]] = []
+        self._total_processed: int = 0
+
+    @abstractmethod
+    def validate(self, data: Any) -> bool:
+        ...
+
+    @abstractmethod
+    def ingest(self, data: Any) -> None:
+        ...
+
+    def output(self) -> Tuple[int, str]:
+        if not self._storage:
+            raise IndexError('No data available')
+        rank, item = self._storage.pop(0)
+        return rank, item
+
+    @property
+    def total_processed(self) -> int:
+        return self._total_processed
+
+    @property
+    def remaining(self) -> int:
+        return len(self._storage)
+
+
+class NumericProcessor(DataProcessor):
+    def validate(self, data: Any) -> bool:
+        if isinstance(data, (int, float)):
+            return True
+        if isinstance(data, list):
+            return all(isinstance(x, (int, float)) for x in data)
+        return False
+
+    def ingest(self, data: int | float | list[int | float]) -> None:
+        if not self.validate(data):
+            raise ValueError('Improper numeric data')
+        if isinstance(data, (int, float)):
+            items = [data]
+        else:
+            items = list(data)
+        for it in items:
+            self._storage.append((self._total_processed, str(it)))
+            self._total_processed += 1
+
+
+class TextProcessor(DataProcessor):
+    def validate(self, data: Any) -> bool:
+        if isinstance(data, str):
+            return True
+        if isinstance(data, list):
+            return all(isinstance(x, str) for x in data)
+        return False
+
+    def ingest(self, data: str | list[str]) -> None:
+        if not self.validate(data):
+            raise ValueError('Improper text data')
+        items = [data] if isinstance(data, str) else list(data)
+        for it in items:
+            self._storage.append((self._total_processed, str(it)))
+            self._total_processed += 1
+
+
+class LogProcessor(DataProcessor):
+    def validate(self, data: Any) -> bool:
+        def valid_log(d: Any) -> bool:
+            if not isinstance(d, dict):
+                return False
+            return all(isinstance(k, str) and isinstance(v, str) for k, v in d.items())
+
+        if isinstance(data, dict):
+            return valid_log(data)
+        if isinstance(data, list):
+            return all(valid_log(x) for x in data)
+        return False
+
+    def ingest(self, data: dict[str, str] | list[dict[str, str]]) -> None:
+        if not self.validate(data):
+            raise ValueError('Improper log data')
+        items = [data] if isinstance(data, dict) else list(data)
+        for it in items:
+            # Convert to readable string like 'LEVEL: message'
+            # if keys are 'log_level' and 'log_message' join them
+            level = it.get('log_level', 'INFO')
+            msg = it.get('log_message', '')
+            text = f"{level}: {msg}"
+            self._storage.append((self._total_processed, text))
+            self._total_processed += 1
 
 
 class DataStream:
@@ -48,7 +136,6 @@ if __name__ == "__main__":
     print('Initialize Data Stream...')
     ds.print_processors_stats()
     print('Registering Numeric Processor')
-    from ex0.data_processor import NumericProcessor, TextProcessor, LogProcessor
     np = NumericProcessor()
     ds.register_processor(np)
     batch = [

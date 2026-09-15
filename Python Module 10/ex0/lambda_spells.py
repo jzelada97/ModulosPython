@@ -14,11 +14,11 @@ def spell_transformer(spells: List[str]) -> List[str]:
 
 
 def mage_stats(mages: List[Dict]) -> Dict[str, float]:
-    powers = list(map(lambda m: m.get('power', 0), mages))
-    if not powers:
+    if not mages:
         return {'max_power': 0, 'min_power': 0, 'avg_power': 0.0}
-    max_p = max(powers)
-    min_p = min(powers)
+    max_p = max(mages, key=lambda m: m.get('power', 0))['power']
+    min_p = min(mages, key=lambda m: m.get('power', 0))['power']
+    powers = list(map(lambda m: m.get('power', 0), mages))
     avg_p = round(sum(powers) / len(powers), 2)
     return {'max_power': max_p, 'min_power': min_p, 'avg_power': avg_p}
 

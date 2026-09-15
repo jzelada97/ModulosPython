@@ -104,7 +104,7 @@ if __name__ == "__main__":
     print("Trying to validate input 'Hello':", np.validate('Hello'))
     print("Test invalid ingestion of string 'foo' without prior validation:")
     try:
-        np.ingest('foo')  # type: ignore[arg-type]  # intentional bad type demo
+        np.ingest('foo')  # intentional bad type demo: mypy warning expected here
     except Exception as e:
         print('Got exception:', e)
     print('Processing data: [1, 2, 3, 4, 5]')

@@ -66,8 +66,9 @@ def main() -> None:
     print("Testing memory vault...")
     vault = memory_vault()
     vault['store']('secret', 42)
-    print("Store'secret'=", vault['recall']('secret'))
-    print("Recall'unknown':", vault['recall']('unknown'))
+    print("Store 'secret' = 42")
+    print("Recall 'secret':", vault['recall']('secret'))
+    print("Recall 'unknown':", vault['recall']('unknown'))
 
 
 if __name__ == '__main__':

@@ -1,28 +1,29 @@
+import importlib
+import importlib.metadata
 import sys
-from typing import Dict
 
 
 REQS = ['numpy', 'pandas', 'matplotlib', 'requests']
 
 
-def check_dependencies() -> Dict[str, bool]:
+def check_dependencies() -> dict[str, bool]:
     statuses = {}
     for pkg in REQS:
         try:
-            __import__(pkg)
+            importlib.import_module(pkg)
             statuses[pkg] = True
         except Exception:
             statuses[pkg] = False
     return statuses
 
 
-def print_dependency_report(statuses: Dict[str, bool]) -> None:
+def print_dependency_report(statuses: dict[str, bool]) -> None:
     print('LOADING STATUS: Loading programs...')
     print('Checking dependencies:')
     for pkg, ok in statuses.items():
         if ok:
             try:
-                mod = __import__(pkg)
+                mod = importlib.import_module(pkg)
                 ver = getattr(mod, '__version__', 'unknown')
             except Exception:
                 ver = 'unknown'
@@ -65,14 +66,17 @@ def run_analysis() -> None:
 
 
 def show_versions() -> None:
-    try:
-        import pkg_resources
-        dists = {d.project_name: d.version for d in pkg_resources.working_set}
-        print('\nInstalled packages (sample):')
-        for name in ['numpy', 'pandas', 'matplotlib', 'requests']:
-            print(f"- {name}: {dists.get(name, 'not installed')}")
-    except Exception:
-        pass
+    # Comparison function: reports installed versions the same way regardless
+    # of whether the environment was built with pip or Poetry - only the
+    # dependency FILES differ (requirements.txt vs pyproject.toml/poetry.lock),
+    # not how the installed distributions are introspected at runtime.
+    print('\nInstalled packages (sample):')
+    for name in ['numpy', 'pandas', 'matplotlib', 'requests']:
+        try:
+            ver = importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:
+            ver = 'not installed'
+        print(f"- {name}: {ver}")
 
 
 if __name__ == '__main__':

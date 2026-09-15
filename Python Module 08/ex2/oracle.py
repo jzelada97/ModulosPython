@@ -1,5 +1,4 @@
 import os
-from typing import Dict
 
 
 def try_load_dotenv() -> bool:
@@ -11,13 +10,13 @@ def try_load_dotenv() -> bool:
         return False
 
 
-def load_config() -> Dict[str, str]:
+def load_config() -> dict[str, str]:
     keys = ['MATRIX_MODE', 'DATABASE_URL', 'API_KEY', 'LOG_LEVEL', 'ZION_ENDPOINT']
     cfg = {k: os.environ.get(k, '') for k in keys}
     return cfg
 
 
-def print_config(cfg: Dict[str, str]) -> None:
+def print_config(cfg: dict[str, str]) -> None:
     print('ORACLE STATUS: Reading the Matrix...')
     mode = cfg.get('MATRIX_MODE') or 'development'
     print('Configuration loaded:')
@@ -37,7 +36,10 @@ def print_config(cfg: Dict[str, str]) -> None:
         print('[OK] .env file present (ensure it is in .gitignore)')
     else:
         print('[OK] No .env file present')
-    print('[OK] Production overrides available' if mode == 'production' else '[INFO] Using development mode')
+    if mode == 'production':
+        print('[OK] Production overrides available')
+    else:
+        print('[INFO] Using development mode')
 
 
 if __name__ == '__main__':

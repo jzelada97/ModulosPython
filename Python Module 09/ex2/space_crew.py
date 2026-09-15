@@ -123,7 +123,7 @@ def main() -> None:
             )
         ]
         SpaceMission(
-            mission_id='X100',
+            mission_id='MBAD0001',
             mission_name='Bad Mission',
             destination='Nowhere',
             launch_date='2026-01-01T09:00:00',  # type: ignore[arg-type]
