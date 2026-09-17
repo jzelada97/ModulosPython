@@ -5,7 +5,9 @@ from pydantic import BaseModel, Field, ValidationError
 
 
 class SpaceStation(BaseModel):
-    station_id: str = Field(..., min_length=3, max_length=10, description='Station identifier')
+    station_id: str = Field(
+        ..., min_length=3, max_length=10, description='Station identifier'
+    )
     name: str = Field(..., min_length=1, max_length=50)
     crew_size: int = Field(..., ge=1, le=20)
     power_level: float = Field(..., ge=0.0, le=100.0)
@@ -35,7 +37,8 @@ def main() -> None:
         print(f'Crew: {valid.crew_size} people')
         print(f'Power: {valid.power_level}%')
         print(f'Oxygen: {valid.oxygen_level}%')
-        print(f"Status: {'Operational' if valid.is_operational else 'Non-operational'}")
+        status = 'Operational' if valid.is_operational else 'Non-operational'
+        print(f"Status: {status}")
     except ValidationError as e:
         print('Unexpected validation error creating valid instance:')
         print(e)

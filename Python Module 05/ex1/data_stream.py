@@ -73,7 +73,10 @@ class LogProcessor(DataProcessor):
         def valid_log(d: Any) -> bool:
             if not isinstance(d, dict):
                 return False
-            return all(isinstance(k, str) and isinstance(v, str) for k, v in d.items())
+            return all(
+                isinstance(k, str) and isinstance(v, str)
+                for k, v in d.items()
+            )
 
         if isinstance(data, dict):
             return valid_log(data)
@@ -115,7 +118,10 @@ class DataStream:
                     # Validation should be safe; ignore and continue
                     continue
             if not handled:
-                print(f"DataStream error - Can't process element in stream: {elem}")
+                print(
+                    "DataStream error - Can't process element in "
+                    f"stream: {elem}"
+                )
 
     def print_processors_stats(self) -> None:
         print('== DataStream statistics ==')
@@ -142,7 +148,10 @@ if __name__ == "__main__":
         'Hello world',
         [3.14, -1, 2.71],
         [
-            {'log_level': 'WARNING', 'log_message': 'Telnet access! Use ssh instead'},
+            {
+                'log_level': 'WARNING',
+                'log_message': 'Telnet access! Use ssh instead',
+            },
             {'log_level': 'INFO', 'log_message': 'User wil is connected'},
         ],
         42,
@@ -159,7 +168,10 @@ if __name__ == "__main__":
     print('Send the same batch again')
     ds.process_stream(batch)
     ds.print_processors_stats()
-    print('Consume some elements from the data processors: Numeric 3, Text 2, Log 1')
+    print(
+        'Consume some elements from the data processors: '
+        'Numeric 3, Text 2, Log 1'
+    )
     for i in range(3):
         try:
             print(np.output())

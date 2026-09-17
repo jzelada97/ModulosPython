@@ -11,7 +11,9 @@ def light_spell_record(spell_name: str, ingredients: str) -> str:
     # before light_validator is imported (no circular import).
     from .light_validator import validate_ingredients
     result = validate_ingredients(ingredients)
-    # result contains '... VALID' or '... INVALID'
-    if 'VALID' in result:
+    # result ends with '... - VALID' or '... - INVALID'. A plain `'VALID' in
+    # result` check would also match the "INVALID" case (VALID is a
+    # substring of INVALID), so this checks the exact suffix instead.
+    if result.endswith('- VALID'):
         return f"Spell recorded: {spell_name} ({ingredients} - VALID)"
     return f"Spell rejected: {spell_name} ({ingredients} - INVALID)"

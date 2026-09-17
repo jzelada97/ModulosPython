@@ -36,7 +36,7 @@ def power_validator(min_power: int) -> Callable:
 
 
 def retry_spell(max_attempts: int) -> Callable:
-    """Decorator factory that retries a failing spell up to max_attempts times."""
+    """Decorator factory retrying a failing spell up to max_attempts times."""
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)
@@ -46,7 +46,10 @@ def retry_spell(max_attempts: int) -> Callable:
                     return func(*args, **kwargs)
                 except Exception:
                     if attempt == max_attempts:
-                        return f"Spell casting failed after {max_attempts} attempts"
+                        return (
+                            "Spell casting failed after "
+                            f"{max_attempts} attempts"
+                        )
                     print(
                         f"Spell failed, retrying... "
                         f"(attempt {attempt}/{max_attempts})"

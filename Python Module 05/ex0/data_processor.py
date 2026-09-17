@@ -73,7 +73,10 @@ class LogProcessor(DataProcessor):
         def valid_log(d: Any) -> bool:
             if not isinstance(d, dict):
                 return False
-            return all(isinstance(k, str) and isinstance(v, str) for k, v in d.items())
+            return all(
+                isinstance(k, str) and isinstance(v, str)
+                for k, v in d.items()
+            )
 
         if isinstance(data, dict):
             return valid_log(data)
@@ -104,7 +107,7 @@ if __name__ == "__main__":
     print("Trying to validate input 'Hello':", np.validate('Hello'))
     print("Test invalid ingestion of string 'foo' without prior validation:")
     try:
-        np.ingest('foo')  # intentional bad type demo: mypy warning expected here
+        np.ingest('foo')  # intentional bad type: mypy warning expected
     except Exception as e:
         print('Got exception:', e)
     print('Processing data: [1, 2, 3, 4, 5]')

@@ -11,7 +11,10 @@ def try_load_dotenv() -> bool:
 
 
 def load_config() -> dict[str, str]:
-    keys = ['MATRIX_MODE', 'DATABASE_URL', 'API_KEY', 'LOG_LEVEL', 'ZION_ENDPOINT']
+    keys = [
+        'MATRIX_MODE', 'DATABASE_URL', 'API_KEY', 'LOG_LEVEL',
+        'ZION_ENDPOINT',
+    ]
     cfg = {k: os.environ.get(k, '') for k in keys}
     return cfg
 
@@ -45,6 +48,9 @@ def print_config(cfg: dict[str, str]) -> None:
 if __name__ == '__main__':
     loaded = try_load_dotenv()
     if not loaded:
-        print('python-dotenv not available. To enable .env loading, install python-dotenv')
+        print(
+            'python-dotenv not available. To enable .env loading, '
+            'install python-dotenv'
+        )
     cfg = load_config()
     print_config(cfg)

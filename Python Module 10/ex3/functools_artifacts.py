@@ -24,7 +24,7 @@ def spell_reducer(spells: list[int], operation: str) -> int:
 
 
 def partial_enchanter(base_enchantment: Callable) -> dict[str, Callable]:
-    """Create 3 specialized enchantments, each pre-filling power and element."""
+    """Create 3 specialized enchantments pre-filling power and element."""
     return {
         "fire_enchant": partial(base_enchantment, 50, "fire"),
         "ice_enchant": partial(base_enchantment, 50, "ice"),

@@ -1,7 +1,9 @@
 from ex0 import FlameFactory
 from ex0.factory import CreatureFactory
 from ex1 import HealingCreatureFactory, TransformCreatureFactory
-from ex2 import BattleStrategy, NormalStrategy, AggressiveStrategy, DefensiveStrategy
+from ex2 import (
+    BattleStrategy, NormalStrategy, AggressiveStrategy, DefensiveStrategy,
+)
 
 Opponent = tuple[CreatureFactory, BattleStrategy]
 
@@ -30,13 +32,19 @@ if __name__ == '__main__':
     print('*** Tournament ***')
     # Simple tournament
     print('Tournament 0 (basic)')
-    ops = [(FlameFactory(), NormalStrategy()), (HealingCreatureFactory(), DefensiveStrategy())]
+    ops = [
+        (FlameFactory(), NormalStrategy()),
+        (HealingCreatureFactory(), DefensiveStrategy()),
+    ]
     print([(type(f).__name__, type(s).__name__) for f, s in ops])
     battle(ops)
 
     # Error tournament
     print('Tournament 1 (error)')
-    ops = [(FlameFactory(), AggressiveStrategy()), (HealingCreatureFactory(), DefensiveStrategy())]
+    ops = [
+        (FlameFactory(), AggressiveStrategy()),
+        (HealingCreatureFactory(), DefensiveStrategy()),
+    ]
     print([(type(f).__name__, type(s).__name__) for f, s in ops])
     try:
         battle(ops)

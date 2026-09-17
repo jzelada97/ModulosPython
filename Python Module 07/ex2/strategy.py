@@ -27,12 +27,15 @@ class NormalStrategy(BattleStrategy):
 
 class AggressiveStrategy(BattleStrategy):
     def is_valid(self, creature: Any) -> bool:
-        return hasattr(creature, 'transform') and hasattr(creature, 'revert')
+        return (
+            hasattr(creature, 'transform') and hasattr(creature, 'revert')
+        )
 
     def act(self, creature: Any) -> None:
         if not self.is_valid(creature):
             raise InvalidStrategyError(
-                f"Invalid Creature'{creature.name}'for this aggressive strategy"
+                f"Invalid Creature'{creature.name}'"
+                "for this aggressive strategy"
             )
         print(creature.transform())
         print(creature.attack())

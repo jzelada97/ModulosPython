@@ -41,10 +41,13 @@ class SpaceMission(BaseModel):
         if not any(r in (Rank.commander, Rank.captain) for r in ranks):
             raise ValueError('Must have at least one Commander or Captain')
         if self.duration_days > 365:
-            experienced = sum(1 for m in self.crew if m.years_experience >= 5)
+            experienced = sum(
+                1 for m in self.crew if m.years_experience >= 5
+            )
             if experienced < (0.5 * len(self.crew)):
                 raise ValueError(
-                    'Long missions (>365 days) need 50% experienced crew (5+ years)'
+                    'Long missions (>365 days) need 50% experienced '
+                    'crew (5+ years)'
                 )
         if any(not m.is_active for m in self.crew):
             raise ValueError('All crew members must be active')

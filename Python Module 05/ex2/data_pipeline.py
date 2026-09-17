@@ -73,7 +73,10 @@ class LogProcessor(DataProcessor):
         def valid_log(d: Any) -> bool:
             if not isinstance(d, dict):
                 return False
-            return all(isinstance(k, str) and isinstance(v, str) for k, v in d.items())
+            return all(
+                isinstance(k, str) and isinstance(v, str)
+                for k, v in d.items()
+            )
 
         if isinstance(data, dict):
             return valid_log(data)
@@ -115,7 +118,10 @@ class DataStream:
                     # Validation should be safe; ignore and continue
                     continue
             if not handled:
-                print(f"DataStream error - Can't process element in stream: {elem}")
+                print(
+                    "DataStream error - Can't process element in "
+                    f"stream: {elem}"
+                )
 
     def print_processors_stats(self) -> None:
         print('== DataStream statistics ==')
@@ -184,7 +190,10 @@ if __name__ == "__main__":
         'Hello world',
         [3.14, -1, 2.71],
         [
-            {'log_level': 'WARNING', 'log_message': 'Telnet access! Use ssh instead'},
+            {
+                'log_level': 'WARNING',
+                'log_message': 'Telnet access! Use ssh instead',
+            },
             {'log_level': 'INFO', 'log_message': 'User wil is connected'},
         ],
         42,
@@ -197,13 +206,19 @@ if __name__ == "__main__":
     csv = CSVPlugin()
     dp.output_pipeline(3, csv)
     dp.print_processors_stats()
-    print('Send another batch of data: numeric, texts, logs, numbers, single string')
+    print(
+        'Send another batch of data: numeric, texts, logs, '
+        'numbers, single string'
+    )
     batch2 = [
         21,
         ['I love AI', 'LLMs are wonderful', 'Stay healthy'],
         [
             {'log_level': 'ERROR', 'log_message': '500 server crash'},
-            {'log_level': 'NOTICE', 'log_message': 'Certificate expires in 10 days'},
+            {
+                'log_level': 'NOTICE',
+                'log_message': 'Certificate expires in 10 days',
+            },
         ],
         [32, 42, 64, 84, 128, 168],
         'World hello',

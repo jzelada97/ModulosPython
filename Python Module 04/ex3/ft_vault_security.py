@@ -1,7 +1,9 @@
 from typing import Tuple, Optional
 
 
-def secure_archive(filename: str, mode: str = 'r', content: Optional[str] = None) -> Tuple[bool, str]:
+def secure_archive(
+    filename: str, mode: str = 'r', content: Optional[str] = None
+) -> Tuple[bool, str]:
     try:
         if mode and mode.startswith('r'):
             with open(filename, 'r', encoding='utf-8') as f:
@@ -25,9 +27,14 @@ if __name__ == "__main__":
     print("Using 'secure_archive' to read from an inaccessible file:")
     print(secure_archive('/etc/master.passwd'))
     print("Using 'secure_archive' to read from a regular file:")
-    # Attempt to read a local file if available; adjust path as needed when running tests
+    # Attempt to read a local file if available; adjust path as
+    # needed when running tests
     ok, content = secure_archive('ancient_fragment.txt')
     print((ok, content))
     print("Using 'secure_archive' to write previous content to a new file:")
-    success, msg = secure_archive('preserved_fragment.txt', mode='w', content=content if ok else 'Sample content')
+    success, msg = secure_archive(
+        'preserved_fragment.txt',
+        mode='w',
+        content=content if ok else 'Sample content',
+    )
     print((success, msg))

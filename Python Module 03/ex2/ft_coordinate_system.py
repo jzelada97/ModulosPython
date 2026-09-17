@@ -13,7 +13,9 @@ def parse_coords(s: str) -> tuple[float, float, float]:
     except ValueError as e:
         bad = next(p for p in parts if not is_float(p))
         idx = parts.index(bad)
-        raise ValueError(f"Error on parameter '{parts[idx]}': {e}")
+        raise ValueError(
+            f"Error on parameter '{parts[idx]}': {e}"
+        )
     return (x, y, z)
 
 
@@ -35,12 +37,16 @@ def get_player_pos() -> tuple[float, float, float]:
             print(e)
 
 
-def dist(a: tuple[float, float, float], b: tuple[float, float, float]) -> float:
-    return math.sqrt((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2 + (b[2] - a[2]) ** 2)
+def dist(
+    a: tuple[float, float, float], b: tuple[float, float, float]
+) -> float:
+    return math.sqrt(
+        (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2 + (b[2] - a[2]) ** 2
+    )
 
 
 if __name__ == "__main__":
-    # Skip interactive demo when stdin is not a terminal (e.g. automated runner)
+    # Skip interactive demo when stdin isn't a terminal (e.g. auto runner)
     if not sys.stdin.isatty():
         print("=== Game Coordinate System ===")
         print("(Skipped: requires interactive input)")
@@ -56,4 +62,7 @@ if __name__ == "__main__":
 
     print("Get a second set of coordinates")
     c2 = get_player_pos()
-    print(f"Distance between the 2 sets of coordinates: {round(dist(c1, c2), 4)}")
+    print(
+        "Distance between the 2 sets of coordinates: "
+        f"{round(dist(c1, c2), 4)}"
+    )

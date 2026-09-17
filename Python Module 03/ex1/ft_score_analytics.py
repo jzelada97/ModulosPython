@@ -5,7 +5,8 @@ def main() -> None:
     print("=== Player Score Analytics ===")
     args = sys.argv[1:]
     if not args:
-        print("No scores provided. Usage: python3 ft_score_analytics.py <score1> <score2> ...")
+        print("No scores provided. Usage: python3 ft_score_analytics.py "
+              "<score1> <score2> ...")
         return
     scores = []
     for a in args:
@@ -15,7 +16,8 @@ def main() -> None:
         except ValueError:
             print(f"Invalid parameter:'{a}'")
     if not scores:
-        print("No scores provided. Usage: python3 ft_score_analytics.py <score1> <score2> ...")
+        print("No scores provided. Usage: python3 ft_score_analytics.py "
+              "<score1> <score2> ...")
         return
     total = sum(scores)
     avg = total / len(scores)
