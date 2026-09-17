@@ -4,9 +4,6 @@ from ex1.capabilities import Sproutling, Bloomelle, Shiftling, Morphagon
 
 
 class HealingCreatureFactory(CreatureFactory):
-    # Narrowed (covariant) return types: every Creature this factory
-    # produces actually has HealCapability's heal(), so callers can use
-    # it without an unsafe cast or a `# type: ignore`.
     def create_base(self) -> Sproutling:
         return Sproutling()
 

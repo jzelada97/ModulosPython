@@ -5,7 +5,6 @@ import time
 
 
 def spell_timer(func: Callable) -> Callable:
-    """Decorator that times a spell's execution."""
 
     @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -20,7 +19,6 @@ def spell_timer(func: Callable) -> Callable:
 
 
 def power_validator(min_power: int) -> Callable:
-    """Decorator factory that rejects casts below min_power."""
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)
@@ -36,7 +34,6 @@ def power_validator(min_power: int) -> Callable:
 
 
 def retry_spell(max_attempts: int) -> Callable:
-    """Decorator factory retrying a failing spell up to max_attempts times."""
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)

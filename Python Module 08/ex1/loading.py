@@ -66,10 +66,6 @@ def run_analysis() -> None:
 
 
 def show_versions() -> None:
-    # Comparison function: reports installed versions the same way regardless
-    # of whether the environment was built with pip or Poetry - only the
-    # dependency FILES differ (requirements.txt vs pyproject.toml/poetry.lock),
-    # not how the installed distributions are introspected at runtime.
     print('\nInstalled packages (sample):')
     for name in ['numpy', 'pandas', 'matplotlib', 'requests']:
         try:

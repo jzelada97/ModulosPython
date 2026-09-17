@@ -30,7 +30,6 @@ def battle(opponents: list[Opponent]) -> None:
 
 if __name__ == '__main__':
     print('*** Tournament ***')
-    # Simple tournament
     print('Tournament 0 (basic)')
     ops = [
         (FlameFactory(), NormalStrategy()),
@@ -39,7 +38,6 @@ if __name__ == '__main__':
     print([(type(f).__name__, type(s).__name__) for f, s in ops])
     battle(ops)
 
-    # Error tournament
     print('Tournament 1 (error)')
     ops = [
         (FlameFactory(), AggressiveStrategy()),
@@ -51,7 +49,6 @@ if __name__ == '__main__':
     except RuntimeError as e:
         print(e)
 
-    # Multiple tournament
     print('Tournament 2 (multiple)')
     ops = [
         (FlameFactory(), NormalStrategy()),

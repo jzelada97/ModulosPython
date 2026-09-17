@@ -1,4 +1,3 @@
-# Circular import: this imports dark_spellbook which imports this module
 from .dark_spellbook import dark_spell_allowed_ingredients
 
 

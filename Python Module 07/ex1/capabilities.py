@@ -23,7 +23,6 @@ class TransformCapability(ABC):
         ...
 
 
-# Concrete healing creatures
 class Sproutling(Creature, HealCapability):
     def __init__(self) -> None:
         super().__init__('Sproutling', 'Grass')
@@ -46,7 +45,6 @@ class Bloomelle(Creature, HealCapability):
         return 'Bloomelle heals itself and others for a large amount'
 
 
-# Concrete transforming creatures
 class Shiftling(Creature, TransformCapability):
     def __init__(self) -> None:
         Creature.__init__(self, 'Shiftling', 'Normal')

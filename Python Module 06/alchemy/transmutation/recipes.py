@@ -1,6 +1,6 @@
-from alchemy.elements import create_air  # absolute import
-from ..potions import strength_potion  # relative import
-from elements import create_fire  # absolute import from root
+from alchemy.elements import create_air
+from ..potions import strength_potion
+from elements import create_fire
 
 
 def lead_to_gold() -> str:

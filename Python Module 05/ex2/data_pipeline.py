@@ -89,8 +89,6 @@ class LogProcessor(DataProcessor):
             raise ValueError('Improper log data')
         items = [data] if isinstance(data, dict) else list(data)
         for it in items:
-            # Convert to readable string like 'LEVEL: message'
-            # if keys are 'log_level' and 'log_message' join them
             level = it.get('log_level', 'INFO')
             msg = it.get('log_message', '')
             text = f"{level}: {msg}"
@@ -115,7 +113,6 @@ class DataStream:
                         handled = True
                         break
                 except Exception:
-                    # Validation should be safe; ignore and continue
                     continue
             if not handled:
                 print(
@@ -143,7 +140,6 @@ class ExportPlugin(Protocol):
 
 class DataPipeline(DataStream):
     def output_pipeline(self, nb: int, plugin: ExportPlugin) -> None:
-        # Collect nb elements from each registered processor and send to plugin
         for proc in list(getattr(self, '_processors', [])):
             collected: List[Tuple[int, str]] = []
             for _ in range(nb):
@@ -157,7 +153,6 @@ class DataPipeline(DataStream):
 
 class CSVPlugin:
     def process_output(self, data: List[Tuple[int, str]]) -> None:
-        # For simplicity join values with commas
         values = [v for _, v in data]
         print('CSV Output:')
         print(','.join(values))
@@ -165,9 +160,6 @@ class CSVPlugin:
 
 class JSONPlugin:
     def process_output(self, data: List[Tuple[int, str]]) -> None:
-        # Build a simple JSON-like string mapping item_<rank> -> value, using
-        # the processing rank returned by DataProcessor.output() (not the
-        # position within this batch), matching the subject's example.
         mapping = {f'item_{rank}': v for rank, v in data}
         items = ', '.join(f'"{k}": "{v}"' for k, v in mapping.items())
         print('JSON Output:')

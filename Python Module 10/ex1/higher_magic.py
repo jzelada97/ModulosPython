@@ -46,9 +46,6 @@ def spell_sequence(
     return seq
 
 
-# Example simple spells
-
-
 def fireball(target: str, power: int) -> str:
     return f"Fireball hits {target} for {power} damage"
 

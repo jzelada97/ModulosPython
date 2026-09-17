@@ -47,10 +47,10 @@ def main() -> None:
     print('Expected validation error:')
     try:
         SpaceStation(
-            station_id='ST',  # too short
+            station_id='ST',
             name='Tiny Station',
-            crew_size=25,  # too many
-            power_level=120.0,  # out of range
+            crew_size=25,
+            power_level=120.0,
             oxygen_level=-5.0,
             last_maintenance='not a datetime',
             notes=None

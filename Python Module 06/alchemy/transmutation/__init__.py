@@ -1,3 +1,3 @@
-from . import recipes  # noqa: F401
+from . import recipes
 
 __all__ = ['recipes']

@@ -89,8 +89,6 @@ class LogProcessor(DataProcessor):
             raise ValueError('Improper log data')
         items = [data] if isinstance(data, dict) else list(data)
         for it in items:
-            # Convert to readable string like 'LEVEL: message'
-            # if keys are 'log_level' and 'log_message' join them
             level = it.get('log_level', 'INFO')
             msg = it.get('log_message', '')
             text = f"{level}: {msg}"
@@ -115,7 +113,6 @@ class DataStream:
                         handled = True
                         break
                 except Exception:
-                    # Validation should be safe; ignore and continue
                     continue
             if not handled:
                 print(

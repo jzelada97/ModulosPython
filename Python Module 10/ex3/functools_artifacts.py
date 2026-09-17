@@ -5,7 +5,6 @@ import operator
 
 
 def spell_reducer(spells: list[int], operation: str) -> int:
-    """Combine spell powers with functools.reduce and operator functions."""
     if not spells:
         return 0
 
@@ -24,7 +23,6 @@ def spell_reducer(spells: list[int], operation: str) -> int:
 
 
 def partial_enchanter(base_enchantment: Callable) -> dict[str, Callable]:
-    """Create 3 specialized enchantments pre-filling power and element."""
     return {
         "fire_enchant": partial(base_enchantment, 50, "fire"),
         "ice_enchant": partial(base_enchantment, 50, "ice"),
@@ -34,14 +32,12 @@ def partial_enchanter(base_enchantment: Callable) -> dict[str, Callable]:
 
 @lru_cache(maxsize=None)
 def memoized_fibonacci(n: int) -> int:
-    """Return the nth Fibonacci number, memoized via functools.lru_cache."""
     if n < 2:
         return n
     return memoized_fibonacci(n - 1) + memoized_fibonacci(n - 2)
 
 
 def spell_dispatcher() -> Callable[[Any], str]:
-    """Build a type-based dispatcher using functools.singledispatch."""
 
     @singledispatch
     def dispatch(spell: Any) -> str:

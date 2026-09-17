@@ -89,8 +89,6 @@ class LogProcessor(DataProcessor):
             raise ValueError('Improper log data')
         items = [data] if isinstance(data, dict) else list(data)
         for it in items:
-            # Convert to readable string like 'LEVEL: message'
-            # if keys are 'log_level' and 'log_message' join them
             level = it.get('log_level', 'INFO')
             msg = it.get('log_message', '')
             text = f"{level}: {msg}"
@@ -100,14 +98,13 @@ class LogProcessor(DataProcessor):
 
 if __name__ == "__main__":
     print('=== Code Nexus - Data Processor ===')
-    # Numeric Processor tests
     print('Testing Numeric Processor...')
     np = NumericProcessor()
     print("Trying to validate input '42':", np.validate(42))
     print("Trying to validate input 'Hello':", np.validate('Hello'))
     print("Test invalid ingestion of string 'foo' without prior validation:")
     try:
-        np.ingest('foo')  # intentional bad type: mypy warning expected
+        np.ingest('foo')
     except Exception as e:
         print('Got exception:', e)
     print('Processing data: [1, 2, 3, 4, 5]')
@@ -117,7 +114,6 @@ if __name__ == "__main__":
         rank, val = np.output()
         print(f'Numeric value {i}: {val}')
 
-    # Text Processor tests
     print('Testing Text Processor...')
     tp = TextProcessor()
     print("Trying to validate input '42':", tp.validate(42))
@@ -126,7 +122,6 @@ if __name__ == "__main__":
     r, v = tp.output()
     print(f'Text value 0: {v}')
 
-    # Log Processor tests
     print('Testing Log Processor...')
     lp = LogProcessor()
     print("Trying to validate input 'Hello':", lp.validate('Hello'))

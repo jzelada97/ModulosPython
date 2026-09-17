@@ -189,15 +189,15 @@ The scale grades code quality independently of the four parts above:
 - **Python version:** all modules use 3.10+ compatible syntax (e.g. builtin generics
   like `list[str]` in `alchemy/grimoire/dark_spellbook.py`); verified running under
   Python 3.12.
-- **flake8:** clean with no ignores at all — verified with plain `flake8`
-  (79-column default, no config file anywhere in the repo). All `ft_*.py` scripts now import first and
-  print their banner/description lines afterward, so `E402` no longer fires anywhere. The one
-  intentional exception is `ft_kaboom_1.py`: its narration ("THIS WILL RAISE AN UNCAUGHT
-  EXCEPTION") must print *before* the import that actually raises the `ImportError`, so the
-  import stays below those prints with a scoped `# noqa: E402` and an explanatory comment —
-  reordering it would silently drop those lines from the transcript. The long lines
-  previously in `ft_alembic_4.py` (around lines 10 and 13) were wrapped; `ft_kaboom_0.py`
-  was already within the 99-column limit.
+- **flake8:** clean except one unavoidable, honest exception — verified with plain
+  `flake8` (79-column default, no config file anywhere in the repo, no `# noqa`
+  comments in any file). All `ft_*.py` scripts import first and print their
+  banner/description lines afterward, so `E402` doesn't fire anywhere except
+  `ft_kaboom_1.py`: its narration ("THIS WILL RAISE AN UNCAUGHT EXCEPTION") must
+  print *before* the import that actually raises the `ImportError` — reordering it
+  would silently drop those lines from the transcript. No comments are used anywhere
+  in this module (including no `# noqa`), so that one `E402` is left as a real,
+  visible flake8 finding rather than suppressed.
 - **Type annotations (mypy):** every function in the library modules (`elements.py`,
   `alchemy/elements.py`, `alchemy/potions.py`, `alchemy/transmutation/recipes.py`,
   `alchemy/grimoire/*.py`) has parameter and return annotations; verified with
