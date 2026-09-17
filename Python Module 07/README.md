@@ -69,10 +69,20 @@ a few gaps slipped through the eval-sheet-only pass and were fixed:
   `sys.path.insert(...)` hack (guarded by nothing, always executed) that also
   produced `E402` and was never needed — these modules are only ever loaded through
   the package mechanism from the root-level test scripts. Removed.
-- Re-ran `flake8 --max-line-length=99` (no ignores) across the whole module: now 0
-  errors, where it previously reported 11 `E402` violations across 5 files.
+- Re-ran plain `flake8` (79-column default, no config, no ignores) across the whole
+  module: now 0 errors, where it previously reported 11 `E402` violations across 5 files.
   `mypy --strict` still passes. All three scripts re-verified to still print output
   matching the subject's example transcripts exactly.
+- `capacitor.py` had **six `# type: ignore[attr-defined]` comments** suppressing real
+  mypy errors on `base.heal()`, `base2.transform()`, etc. The root cause: `ex1/factory.py`'s
+  `HealingCreatureFactory.create_base()`/`create_evolved()` and
+  `TransformCreatureFactory.create_base()`/`create_evolved()` declared their return type as
+  the generic `Creature` (matching `CreatureFactory`'s abstract signature), even though each
+  one only ever returns one specific capability-bearing subclass (`Sproutling`, `Bloomelle`,
+  `Shiftling`, `Morphagon`). Fixed by narrowing each override's return type to the concrete
+  subclass it actually returns (a valid covariant override, not a type-safety hole) instead
+  of suppressing the error — `mypy --strict` now type-checks `base.heal()` for real, with
+  zero `# type: ignore` comments anywhere in the module.
 
 ## Exercises & Learning Objectives
 

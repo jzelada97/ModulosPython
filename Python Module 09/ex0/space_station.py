@@ -27,7 +27,7 @@ def main() -> None:
             crew_size=6,
             power_level=85.5,
             oxygen_level=92.3,
-            last_maintenance='2024-01-01T12:00:00',  # type: ignore[arg-type]
+            last_maintenance='2024-01-01T12:00:00',
             is_operational=True,
             notes='All systems nominal.'
         )
@@ -52,7 +52,7 @@ def main() -> None:
             crew_size=25,  # too many
             power_level=120.0,  # out of range
             oxygen_level=-5.0,
-            last_maintenance='not a datetime',  # type: ignore[arg-type]
+            last_maintenance='not a datetime',
             notes=None
         )
     except ValidationError as e:

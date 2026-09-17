@@ -178,9 +178,9 @@ formats can be added without modifying existing code (Open/Closed Principle).
   and lowercase generics (`list[...]`, `dict[str, str]`) are used throughout, guarded
   by `from __future__ import annotations` so annotations are also safe on slightly
   older interpreters. Verified running under Python 3.12.2.
-- [x] `flake8 --max-line-length=99` (no ignores) is clean on all three files —
-  verified with flake8 7.3.0. No trailing whitespace, no tabs, all three files end
-  with a newline.
+- [x] `flake8` (plain defaults — 79-column limit, no config file, no ignores) is
+  clean on all three files — verified with flake8 7.3.0. No trailing whitespace,
+  no tabs, all three files end with a newline.
 - [x] Type annotations are present on effectively every function, method, and
   parameter across all three files, including return types (`-> bool`, `-> None`,
   `-> Tuple[int, str]`, etc.), verified with `mypy --disallow-untyped-defs

@@ -204,11 +204,11 @@ App methodology considers this essential for any deployable application.
       still runs to completion with `os.environ`-only configuration — no crash. Confirmed
       with mypy that once `python-dotenv` is resolvable the file is 100% clean (no import
       exemption needed for ex2, unlike ex1).
-- [x] **Fixed** — `print_config()` line 39 was 109 characters, exceeding a clean
-      `max-line-length=99` flake8 check (only passed before because of the repo's shared
-      `.flake8`, which won't ship with this exercise's own submission repo). Split the
-      single-line conditional print into an `if`/`else` block; behavior unchanged, verified
-      by re-running `oracle.py`.
+- [x] **Fixed** — `print_config()` had a 109-character line, failing flake8's real
+      default 79-column limit (there is no repo-wide `.flake8` overriding it — every
+      module is linted with plain flake8 defaults). Split the single-line conditional
+      print into an `if`/`else` block; behavior unchanged, verified by re-running
+      `oracle.py`.
 
 ## Code Quality and Understanding (applies to all three exercises)
 
@@ -216,8 +216,8 @@ Per the official scale, this section is graded across the whole module, not per 
 
 - [x] Written for Python 3.10+ (`pyproject.toml` pins `python = "^3.10"`; no syntax used
       requires anything newer).
-- [x] flake8-clean: `python -m flake8 ex0 ex1 ex2` reports zero errors (checked against
-      this repo's `.flake8`: `max-line-length = 120`, `ignore = E402`).
+- [x] flake8-clean: `python -m flake8 ex0 ex1 ex2` reports zero errors with plain
+      defaults (no config file, no line-length override, no ignored error codes).
 - [x] Type hints on every function's parameters and return values across `construct.py`,
       `loading.py`, and `oracle.py` (e.g. `in_virtualenv() -> bool`,
       `load_config() -> dict[str, str]`, `print_dependency_report(statuses: dict[str,

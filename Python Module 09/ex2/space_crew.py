@@ -62,7 +62,7 @@ def main() -> None:
             CrewMember(
                 member_id='C001',
                 name='Sarah Connor',
-                rank='commander',  # type: ignore[arg-type]
+                rank='commander',
                 age=40,
                 specialization='Command',
                 years_experience=12,
@@ -71,7 +71,7 @@ def main() -> None:
             CrewMember(
                 member_id='C002',
                 name='John Smith',
-                rank='lieutenant',  # type: ignore[arg-type]
+                rank='lieutenant',
                 age=35,
                 specialization='Navigation',
                 years_experience=6,
@@ -80,7 +80,7 @@ def main() -> None:
             CrewMember(
                 member_id='C003',
                 name='Alice Johnson',
-                rank='officer',  # type: ignore[arg-type]
+                rank='officer',
                 age=30,
                 specialization='Engineering',
                 years_experience=7,
@@ -91,7 +91,7 @@ def main() -> None:
             mission_id='M2024_MARS',
             mission_name='Mars Colony Establishment',
             destination='Mars',
-            launch_date='2026-01-01T09:00:00',  # type: ignore[arg-type]
+            launch_date='2026-01-01T09:00:00',
             duration_days=900,
             crew=crew,
             mission_status='planned',
@@ -118,7 +118,7 @@ def main() -> None:
             CrewMember(
                 member_id='C010',
                 name='Inactive One',
-                rank='officer',  # type: ignore[arg-type]
+                rank='officer',
                 age=29,
                 specialization='Comms',
                 years_experience=2,
@@ -129,7 +129,7 @@ def main() -> None:
             mission_id='MBAD0001',
             mission_name='Bad Mission',
             destination='Nowhere',
-            launch_date='2026-01-01T09:00:00',  # type: ignore[arg-type]
+            launch_date='2026-01-01T09:00:00',
             duration_days=10,
             crew=bad_crew,
             mission_status='planned',

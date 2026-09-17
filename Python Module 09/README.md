@@ -146,10 +146,24 @@ doubles as a "did I meet the grading bar" reference during defense.
 ### Code Quality and Best Practices (applies to all three exercises)
 - [x] Code targets Python 3.10+ syntax (`str | None`-style unions are not required here
   since `Optional[...]` from `typing` is used consistently; run on Python 3.12).
-- [x] `flake8` reports zero errors against the repo's `.flake8` config
-  (`max-line-length = 120`).
+- [x] `flake8` reports zero errors with plain defaults (79-column limit, no
+  repo-wide config file or overrides).
 - [x] Type hints are present on every function/method, including `main() -> None` and
   every `@model_validator` (`-> 'SpaceStation'`, `-> 'AlienContact'`, `-> 'SpaceMission'`).
+- **Known, unsuppressed `mypy` findings (12 across the module, all the same shape):**
+  running plain `mypy` (no plugin, no config file, no `# type: ignore` anywhere in the
+  code) reports `error: Argument "..." has incompatible type "str"; expected "datetime"`
+  (or `"Rank"`/`"ContactType"`) on every line in `main()` that passes a plain string
+  literal for a `datetime` or enum field (e.g. `last_maintenance='2024-01-01T12:00:00'`,
+  `rank='commander'`, `contact_type='radio'`). This is expected, not a bug: mypy checks
+  against the field's final Python type, but doesn't know Pydantic validates/coerces
+  compatible strings into that type at construction time — this exact scenario is what
+  ex0's subject prompt asks about directly ("What happens when you pass a string
+  timestamp to a datetime field?"). Fixing this "properly" would mean either installing
+  Pydantic's `mypy` plugin (an extra, unrequested tool/config) or rewriting the demos to
+  pass already-constructed `datetime`/enum objects instead of strings — which would
+  remove the very behavior the subject asks the demo to show. Left as plain, visible
+  mypy errors rather than hidden behind a suppression comment.
 - [x] Docstrings are **not required** for this module (per the eval sheet) and are
   intentionally omitted.
 - [x] Naming follows Python conventions (`snake_case` fields/functions, `PascalCase`

@@ -189,9 +189,8 @@ The scale grades code quality independently of the four parts above:
 - **Python version:** all modules use 3.10+ compatible syntax (e.g. builtin generics
   like `list[str]` in `alchemy/grimoire/dark_spellbook.py`); verified running under
   Python 3.12.
-- **flake8:** clean with no ignores at all — verified with
-  `flake8 --isolated --max-line-length=99` (bypassing the monorepo-root `.flake8` entirely,
-  simulating a fresh clone of just this project). All `ft_*.py` scripts now import first and
+- **flake8:** clean with no ignores at all — verified with plain `flake8`
+  (79-column default, no config file anywhere in the repo). All `ft_*.py` scripts now import first and
   print their banner/description lines afterward, so `E402` no longer fires anywhere. The one
   intentional exception is `ft_kaboom_1.py`: its narration ("THIS WILL RAISE AN UNCAUGHT
   EXCEPTION") must print *before* the import that actually raises the `ImportError`, so the

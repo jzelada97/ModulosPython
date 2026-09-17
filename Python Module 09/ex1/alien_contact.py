@@ -52,9 +52,9 @@ def main() -> None:
     try:
         valid = AlienContact(
             contact_id='AC_2024_001',
-            timestamp='2024-07-01T12:00:00',  # type: ignore[arg-type]
+            timestamp='2024-07-01T12:00:00',
             location='Area 51, Nevada',
-            contact_type='radio',  # type: ignore[arg-type]
+            contact_type='radio',
             signal_strength=8.5,
             duration_minutes=45,
             witness_count=5,
@@ -78,9 +78,9 @@ def main() -> None:
     try:
         AlienContact(
             contact_id='XX2024',
-            timestamp='2024-07-01T12:00:00',  # type: ignore[arg-type]
+            timestamp='2024-07-01T12:00:00',
             location='Unknown Sector',
-            contact_type='telepathic',  # type: ignore[arg-type]
+            contact_type='telepathic',
             signal_strength=4.0,
             duration_minutes=10,
             witness_count=1,
